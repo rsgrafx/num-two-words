@@ -1,0 +1,6 @@
+%{
+  "espec": {:hex, :espec, "1.4.4", "dff4cb9c119a1f201637d7a061c087afa42511d5135d4fb53061c838981e619f", [:mix], [{:meck, "0.8.4", [hex: :meck, repo: "hexpm", optional: false]}], "hexpm"},
+  "file_system": {:hex, :file_system, "0.2.7", "e6f7f155970975789f26e77b8b8d8ab084c59844d8ecfaf58cbda31c494d14aa", [:mix], [], "hexpm"},
+  "meck": {:hex, :meck, "0.8.4", "59ca1cd971372aa223138efcf9b29475bde299e1953046a0c727184790ab1520", [:make, :rebar], [], "hexpm"},
+  "mix_test_watch": {:hex, :mix_test_watch, "0.9.0", "c72132a6071261893518fa08e121e911c9358713f62794a90c95db59042af375", [:mix], [{:file_system, "~> 0.2.1 or ~> 0.3", [hex: :file_system, repo: "hexpm", optional: false]}], "hexpm"},
+}
