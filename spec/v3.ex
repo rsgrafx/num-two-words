@@ -8,7 +8,6 @@ defmodule Orion.V3 do
     number
     |> do_number()
     |> return()
-    |> String.trim()
   end
 
   defp return(values) when is_binary(values), do: values
@@ -57,7 +56,7 @@ defmodule Orion.V3 do
     recurse(rem, str)
   end
 
-  defp words(0, i), do: []
+  defp words(0, _i), do: []
   defp words(num, i) do
     [do_number(num), base(i)]
   end
@@ -65,5 +64,6 @@ defmodule Orion.V3 do
   def base(0), do: []
   def base(1), do: ["thousand"]
   def base(2), do: ["million"]
+  def base(3), do: ["billion"]
 
 end
