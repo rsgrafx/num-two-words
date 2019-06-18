@@ -15,23 +15,22 @@ defmodule Numbers2WordsTest do
 
     test "numbers within to 10" do
       numbers_words = [
-      "one",
-      "two",
-      "three",
-      "four",
-      "five",
-      "six",
-      "seven",
-      "eight",
-      "nine",
-       "ten"
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten"
       ]
 
       Enum.with_index(numbers_words, 1)
       |> Enum.map(fn {word, num} ->
-          assert word == Numbers2Words.get(num)
-       end)
-
+        assert word == Numbers2Words.get(num)
+      end)
     end
 
     test "zero" do
@@ -58,12 +57,12 @@ defmodule Numbers2WordsTest do
       assert "ten thousand and nine hundred and twenty one" == Numbers2Words.get(10921)
     end
 
-    test "three hundred and twenty thousand and fifty three"  do
-      assert "three hundred and twenty thousand fifty three" == Numbers2Words.get(320053)
+    test "three hundred and twenty thousand and fifty three" do
+      assert "three hundred and twenty thousand fifty three" == Numbers2Words.get(320_053)
     end
 
-    test "two million and one"  do
-      assert "two million one" == Numbers2Words.get(2000001)
+    test "two million and one" do
+      assert "two million one" == Numbers2Words.get(2_000_001)
     end
   end
 end
