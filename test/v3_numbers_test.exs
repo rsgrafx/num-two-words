@@ -1,8 +1,8 @@
-Code.require_file("./spec/v2.ex")
+Code.require_file("./spec/v3.ex")
 
-defmodule Numbers2Words_V2_Test do
+defmodule Numbers2Words_V3_Test do
   use ExUnit.Case
-  alias Orion.V2, as: Numbers2Words
+  alias Orion.V3, as: Numbers2Words
 
   describe "Numbers 2 Words" do
     test "should convert integer to word equivalent" do
