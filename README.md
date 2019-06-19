@@ -14,7 +14,7 @@ Run:
 
 Run FizzBuzz test:
 
-`mix espec spec/fizzbuzz_spec.exs`
+`mix test spec/fizzbuzz_spec.exs`
 
 Run FizzBuzz test:
 

@@ -18,32 +18,31 @@ defmodule Orion.V3 do
     |> Enum.join(" ")
   end
 
-  defp do_number(num) when num <= 10 do
-    Map.get(base_numbers(), num)
-  end
-
-  defp do_number(num) when num > 10 and num < 20 do
-    Map.get(base_teens(), num)
+  defp do_number(num) when num < 20 do
+    base_numbers()[num]
   end
 
   defp do_number(num) when num < 100 do
     [tens, num] = digits(num)
-    [Map.get(base_tens(), tens), Map.get(base_numbers(), num)]
+    [base_tens()[tens], base_numbers()[num]]
   end
 
   defp do_number(num) when num < 1000 do
-    split = digits(num)
-    rm = tl(split) |> undigits()
-    [do_number(hd(split))] ++ ["hundred"] ++ [do_number(rm)]
+    [top|rem] = digits(num)
+    [do_number(top) | ["hundred",
+      rem
+      |> undigits()
+      |> do_number()]
+    ]
   end
 
   defp do_number(num) do
-    list = digits(num)
+    digits(num)
     |> Enum.reverse()
     |> Enum.chunk_every(3)
     |> Enum.with_index()
     |> Enum.map(fn {block, x} -> {Enum.reverse(block), x} end)
-    recurse(list, [])
+    |> recurse([])
   end
 
   defp recurse([], string_list) do
@@ -52,8 +51,7 @@ defmodule Orion.V3 do
 
   defp recurse([{nl, i}|rem], string_list) do
     words = words(undigits(nl), i)
-    str = words ++ string_list
-    recurse(rem, str)
+    recurse(rem, [words|string_list])
   end
 
   defp words(0, _i), do: []

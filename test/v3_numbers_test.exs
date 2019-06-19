@@ -1,5 +1,9 @@
 Code.require_file("./spec/v3.ex")
 
+defmodule Orion.V4 do
+
+end
+
 defmodule Numbers2Words_V3_Test do
   use ExUnit.Case
   alias Orion.V3, as: Numbers2Words

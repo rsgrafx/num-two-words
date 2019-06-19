@@ -12,9 +12,6 @@ defmodule Orion.Base do
     8 => "eight",
     9 => "nine",
     10 => "ten",
-  }
-
-  @teens %{
     11 => "eleven",
     12 => "twelve",
     13 => "thirteen",
@@ -37,16 +34,17 @@ defmodule Orion.Base do
     9 => "ninety"
   }
 
-  @base %{
-    3 => "hundred",
-    4 => "thousand",
-    5 => "thousand",
-    6 => "million",
-    7 => "million"
-  }
+  def base do
+    %{
+      3 => "hundred",
+      4 => "thousand",
+      5 => "thousand",
+      6 => "million",
+      7 => "million"
+    }
+  end
 
-  def base, do: @base
   def base_tens, do: @tens
-  def base_teens, do: @teens
+  def base_teens, do: @numbers
   def base_numbers, do: @numbers
 end
