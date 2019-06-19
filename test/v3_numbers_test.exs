@@ -91,5 +91,9 @@ defmodule Numbers2Words_V3_Test do
     test "billions.." do
       assert "two billion one hundred million one" == Numbers2Words.get(2_100_000_001)
     end
+
+    test "trillions.!!! billions.." do
+      assert "two trillion one hundred billion one hundred million one" == Numbers2Words.get(2_100_100_000_001)
+    end
   end
 end

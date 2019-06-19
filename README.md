@@ -12,14 +12,13 @@ Run:
 
 ## Running Specs
 
-Run FizzBuzz test:
+Run Tests:
 
-`mix test spec/fizzbuzz_spec.exs`
+`mix test`
 
-Run FizzBuzz test:
+# Look at evolution of code
 
-`mix espec spec/numbers_2_words_spec.exs`
-
-Run all specs:
-
-`mix espec`
+original implementation:
+  `spec/numbers_2_words_spec.exs`
+  `spec/v2.ex`
+  `spec/v3.ex`

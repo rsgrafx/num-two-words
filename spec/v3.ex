@@ -41,9 +41,10 @@ defmodule Orion.V3 do
   defp do_number(num) do
     num
     |> Enum.reverse()
-    |> Enum.chunk_every(3)
-    |> Enum.with_index()
-    |> Enum.map(fn {block, x} -> {Enum.reverse(block), x} end)
+    |> Stream.chunk_every(3)
+    |> Stream.with_index()
+    |> Stream.map(fn {block, x} -> {Enum.reverse(block), x} end)
+    |> Enum.to_list()
     |> recurse([])
   end
 
@@ -65,5 +66,6 @@ defmodule Orion.V3 do
   def base(1), do: ["thousand"]
   def base(2), do: ["million"]
   def base(3), do: ["billion"]
+  def base(4), do: ["trillion"]
 
 end

@@ -5,11 +5,6 @@ defmodule Orion.V2 do
   import Integer, only: [undigits: 1, digits: 1]
 
   def get(number) do
-    length =
-      number
-      |> Integer.digits()
-      |> length()
-
     do_number(number) |> join_all()
   end
 
@@ -25,7 +20,7 @@ defmodule Orion.V2 do
 
   defp do_number(num) when num < 100 do
     [tens, num] = digits(num)
-    [Map.get(base_tens(), tens), Map.get(base_numbers, num)]
+    [Map.get(base_tens(), tens), Map.get(base_numbers(), num)]
   end
 
   defp do_number(num) when num < 1000 do
@@ -45,16 +40,16 @@ defmodule Orion.V2 do
     [do_number(undigits(millions)), "million"] ++ [do_number(undigits(rem))]
   end
 
+  defp do_number({[], base}) do
+    do_number(undigits(base))
+  end
+
   defp block(num) do
     digits(num)
     |> Enum.reverse()
     |> Enum.chunk_every(3)
     |> Enum.map(fn block -> Enum.reverse(block) end)
     |> Enum.reverse()
-  end
-
-  defp do_number({[], base}) do
-    do_number(undigits(base))
   end
   #
   def base_term(len) do
