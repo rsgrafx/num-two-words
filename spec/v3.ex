@@ -22,13 +22,15 @@ defmodule Orion.V3 do
     base_numbers()[num]
   end
 
-  defp do_number(num) when num < 100 do
-    [tens, num] = digits(num)
+  defp do_number(num) when is_integer(num) do
+    digits(num) |> do_number()
+  end
+
+  defp do_number([tens, num])  do
     [base_tens()[tens], base_numbers()[num]]
   end
 
-  defp do_number(num) when num < 1000 do
-    [top|rem] = digits(num)
+  defp do_number([top|rem] = num) when length(num) < 4 do
     [do_number(top) | ["hundred",
       rem
       |> undigits()
@@ -37,7 +39,7 @@ defmodule Orion.V3 do
   end
 
   defp do_number(num) do
-    digits(num)
+    num
     |> Enum.reverse()
     |> Enum.chunk_every(3)
     |> Enum.with_index()
