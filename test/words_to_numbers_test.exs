@@ -54,17 +54,19 @@ defmodule Orion.Words2NumbersTest do
       assert Words2Numbers.get("three hundred") == 300
     end
 
-    test "hundred + but less than 1000" do
-      assert Words2Numbers.get("three hundred twenty") == 320
-      assert Words2Numbers.get("three hundred thirty") == 330
-      assert Words2Numbers.get("three hundred fourty") == 340
-      assert Words2Numbers.get("three hundred twenty one") == 321
-    end
+    test "hundred + but less than 1000"
+    # do
+    #   assert Words2Numbers.get("three hundred twenty") == 320
+    #   assert Words2Numbers.get("three hundred thirty") == 330
+    #   assert Words2Numbers.get("three hundred fourty") == 340
+    #   assert Words2Numbers.get("three hundred twenty one") == 321
+    # end
 
-    test "thousands" do
-      assert Words2Numbers.get("one thousand") == 1000
-      assert Words2Numbers.get("one thousand one") == 1001
-      assert Words2Numbers.get("one thousand three hundred fourty one") == 1341
-    end
+    test "thousands"
+    # do
+    #   assert Words2Numbers.get("one thousand") == 1000
+    #   assert Words2Numbers.get("one thousand one") == 1001
+    #   assert Words2Numbers.get("one thousand three hundred fourty one") == 1341
+    # end
   end
 end

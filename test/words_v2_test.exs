@@ -1,9 +1,13 @@
 Code.require_file("./spec/words_v2.ex")
+Code.require_file("./spec/words_v3.ex")
 
 defmodule Orion.WordsV2Test do
   use ExUnit.Case
 
   @parser Orion.WordsToInt
+
+  # Solution that passes tests.
+  @converter Orion.WordsV3.Converter
 
   describe "parse string" do
     test "parse to list" do
@@ -38,16 +42,17 @@ defmodule Orion.WordsV2Test do
 
   describe "grammar to number" do
     test ".convert" do
-      assert @parser.convert([1]) == 1
-      assert @parser.convert([[1],[2]]) == 3
-      assert @parser.convert([[3],{0,0},[2]]) == 302
-      assert @parser.convert([[3],{0,0,0},[2]]) == 3002
-      assert @parser.convert([[3],{0,0,0},[1,2]]) == 3012
+      # Note not using parser.
+      assert @converter.convert([[1]]) == 1
+      assert @converter.convert([[1],[2]]) == 3
+      assert @converter.convert([[3],{0,0},[2]]) == 302
+      assert @converter.convert([[3],{0,0,0},[2]]) == 3002
+      assert @converter.convert([[3],{0,0,0},[1,2]]) == 3012
 
-      assert @parser.convert([[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [1]]) == 70_070_001
-      assert @parser.convert([[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [2,1]]) == 70_070_021
+      assert @converter.convert([[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [1]]) == 70_070_001
+      assert @converter.convert([[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [2,1]]) == 70_070_021
 
-      assert @parser.convert(
+      assert @converter.convert(
         [[1],{0,0,0,0,0,0},[3],{0,0},{0,0,0},[2],{0,0},[1]]
       ) == 1_300_201
 
@@ -64,6 +69,36 @@ defmodule Orion.WordsV2Test do
       assert @parser.get("one million two hundred one") == 1_000_201
       assert @parser.get("one million three hundred thousand two hundred one") == 1_300_201
     end
+  end
+
+  test "1..19" do
+    numbers_words = [
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+      "ten",
+      "eleven",
+      "twelve",
+      "thirteen",
+      "fourteen",
+      "fifteen",
+      "sixteen",
+      "seventeen",
+      "eighteen",
+      "nineteen"
+    ]
+
+    numbers_words
+    |> Enum.with_index(1)
+    |> Enum.map(fn {num, word} ->
+      assert @parser.get(num) == word
+    end)
   end
 
 end
