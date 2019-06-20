@@ -8,22 +8,19 @@ defmodule Orion.Words2Numbers do
   def get(string) do
     string
     |> parse_to_list()
+    |> IO.inspect()
     |> do_get()
     |> to_num()
   end
 
   defp to_num(val) when is_number(val), do: val
-  defp to_num(val) when is_list(val) do
-    Enum.reduce(val, {[], []}, fn
-      item, {acc, l} when is_number(item) -> {acc ++ [item], l}
-      item, {acc, l} when is_list(item) ->  {acc, [item|[l]] }
+  defp to_num([h|_] = val) when is_list(h) do
+    Enum.reduce(val, 0, fn(i, acc) ->
+      acc = undigits(i) + acc
     end)
-    |> case do
-      {p, []} -> undigits(p)
-      {p, list} ->
-        {p = undigits(p), results = Enum.reduce(list, 0, fn i, acc -> acc + undigits(i) end)}
-        p + results
-    end
+  end
+  defp to_num([h|_] = val) when is_number(h) do
+    undigits val
   end
 
   @tens [
@@ -47,6 +44,18 @@ defmodule Orion.Words2Numbers do
 
   defp recurse_strings(["hundred"|tail], num_list) do
     recurse_strings(tail, num_list ++ [0,0])
+  end
+
+  defp recurse_strings(["thousand"|tail], num_list) do
+    recurse_strings(tail, num_list ++ [0,0,0])
+  end
+
+  defp recurse_strings([hd|tail], num_list) when length(num_list) >= 3 do
+    recurse_strings(tail, [num_list] ++ [do_get(hd)] )
+  end
+
+  defp recurse_strings([hd|[]], num_list)  do
+    recurse_strings([], num_list ++ [[do_get(hd)]])
   end
 
   defp recurse_strings([hd|tail], num_list)  do
