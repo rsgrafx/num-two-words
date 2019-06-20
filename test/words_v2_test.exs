@@ -29,6 +29,9 @@ defmodule Orion.WordsV2Test do
       assert [[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [1]] == @parser.grammar(string)
       string = "three thousand twelve"
       assert [[3],{0,0,0},[1,2]] == @parser.grammar(string)
+      assert [
+        [1],{0,0,0,0,0,0},[3],{0,0},{0,0,0},[2],{0,0},[1]
+      ] == @parser.grammar("one million three hundred thousand two hundred one")
     end
 
   end
@@ -36,13 +39,18 @@ defmodule Orion.WordsV2Test do
   describe "grammar to number" do
     test ".convert" do
       assert @parser.convert([1]) == 1
-      assert @parser.convert([[1],[2]]) == 12
+      assert @parser.convert([[1],[2]]) == 3
       assert @parser.convert([[3],{0,0},[2]]) == 302
       assert @parser.convert([[3],{0,0,0},[2]]) == 3002
       assert @parser.convert([[3],{0,0,0},[1,2]]) == 3012
 
       assert @parser.convert([[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [1]]) == 70_070_001
       assert @parser.convert([[7,0],{0,0,0,0,0,0},[7,0],{0,0,0}, [2,1]]) == 70_070_021
+
+      assert @parser.convert(
+        [[1],{0,0,0,0,0,0},[3],{0,0},{0,0,0},[2],{0,0},[1]]
+      ) == 1_300_201
+
     end
   end
 
@@ -53,6 +61,8 @@ defmodule Orion.WordsV2Test do
       assert @parser.get("one thousand one") == 1001
 
       assert @parser.get("one million one") == 1_000_001
+      assert @parser.get("one million two hundred one") == 1_000_201
+      assert @parser.get("one million three hundred thousand two hundred one") == 1_300_201
     end
   end
 

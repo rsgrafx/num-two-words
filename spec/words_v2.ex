@@ -41,7 +41,7 @@ defmodule Orion.WordsToInt do
     Enum.map(string_list, fn item ->
       Map.get(numbers(), item)
       |> case do
-        num when is_number(num) -> Integer.digits(num)
+        num when is_number(num) -> digits(num)
         val -> val
       end
     end)
@@ -64,28 +64,38 @@ defmodule Orion.WordsToInt do
     convert([], x + val)
   end
 
+  # Bad solution - you will continue to keep adding function heads
+  # to mitigate potential issues.
+  def convert([h, top, tuple |tail], val) when is_list(h) and is_tuple(top) and is_tuple(tuple) do
+    sml = h ++ Tuple.to_list(top) ++ Tuple.to_list(tuple)
+    val = val + undigits(sml)
+    convert(tail, val)
+  end
+
+  def convert([h, top, tuple |tail], val) when is_list(h) and is_list(top) and is_tuple(tuple) do
+    sml = top ++ Tuple.to_list(tuple)
+    val = val + undigits(h) + undigits(sml)
+    convert(tail, val)
+  end
+
   def convert([x, y], val) when is_number(x) and is_number(y) do
     convert([], x + y + val)
   end
+
   def convert([x, y], val) when is_list(x) and is_list(y) do
     val = undigits(x) + undigits(y)
     convert([], val)
   end
 
-  def convert([h, top| tail]) when is_list(h) and is_list(top) do
-    val = undigits(h) + undigits(top)
-    convert(tail, val)
-  end
-
-  def convert([h,top|tail], val) when is_tuple(h) do
-    val = digits(val) ++ Tuple.to_list(h)
-    val = undigits(val)
+  def convert([h,top|tail], val) when is_tuple(h) and is_list(top) do
+    large = digits(val) ++ Tuple.to_list(h)
+    val = val + undigits(large) + undigits(top)
     convert(tail, val)
   end
 
   def convert([h,top|tail], val) when is_list(h) and is_tuple(top) do
-    val = undigits(h ++ Tuple.to_list(top))
-    convert(tail, val)
+    count = h ++ Tuple.to_list(top)
+    convert([count|tail], val)
   end
 
 end
