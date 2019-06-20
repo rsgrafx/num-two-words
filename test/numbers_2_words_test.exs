@@ -45,7 +45,6 @@ defmodule Numbers2WordsTest do
       assert "sixty one" == Numbers2Words.get(61)
     end
 
-
     test "nine hundred and twenty one" do
       assert "nine hundred and twenty one" == Numbers2Words.get(921)
     end

@@ -1,7 +1,6 @@
 Code.require_file("./spec/v3.ex")
 
 defmodule Orion.V4 do
-
 end
 
 defmodule Numbers2Words_V3_Test do
@@ -93,7 +92,8 @@ defmodule Numbers2Words_V3_Test do
     end
 
     test "trillions.!!! billions.." do
-      assert "two trillion one hundred billion one hundred million one" == Numbers2Words.get(2_100_100_000_001)
+      assert "two trillion one hundred billion one hundred million one" ==
+               Numbers2Words.get(2_100_100_000_001)
     end
   end
 end
