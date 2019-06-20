@@ -2,6 +2,7 @@ Code.require_file("./spec/v2/grammar.ex")
 
 defmodule Orion.WordsToInt do
   import Words.Grammar
+  import Integer, only: [undigits: 1, digits: 1]
 
   @moduledoc  """
     Second attempt at parsing words to numbers.
@@ -27,6 +28,12 @@ defmodule Orion.WordsToInt do
 
   """
 
+  def get(string) do
+    string
+    |> grammar()
+    |> convert()
+  end
+
   @doc "Returns the grammar"
   @spec grammar(String.t()) :: List.t
   def grammar(string) do
@@ -47,12 +54,38 @@ defmodule Orion.WordsToInt do
   end
 
   @spec convert(List.t) :: Integer.t()
-  def convert(list) do
-    Enum.reduce(list, 0
-      fn
-        # -- TODO: LONG DAY.
-      end
-    )
+  def convert(base), do: convert(base, 0)
+  def convert([], val), do: val
+
+  def convert([x], val) when is_list(x) do
+    convert([], undigits(x) + val)
+  end
+  def convert([x], val) when is_number(x) do
+    convert([], x + val)
+  end
+
+  def convert([x, y], val) when is_number(x) and is_number(y) do
+    convert([], x + y + val)
+  end
+  def convert([x, y], val) when is_list(x) and is_list(y) do
+    val = undigits(x) + undigits(y)
+    convert([], val)
+  end
+
+  def convert([h, top| tail]) when is_list(h) and is_list(top) do
+    val = undigits(h) + undigits(top)
+    convert(tail, val)
+  end
+
+  def convert([h,top|tail], val) when is_tuple(h) do
+    val = digits(val) ++ Tuple.to_list(h)
+    val = undigits(val)
+    convert(tail, val)
+  end
+
+  def convert([h,top|tail], val) when is_list(h) and is_tuple(top) do
+    val = undigits(h ++ Tuple.to_list(top))
+    convert(tail, val)
   end
 
 end
