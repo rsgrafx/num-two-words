@@ -2,7 +2,6 @@ Code.require_file("./spec/words_to_numbers.ex")
 
 defmodule Orion.Words2NumbersTest do
   use ExUnit.Case
-
   alias Orion.Words2Numbers
 
   describe "Convert a number string to integer" do
@@ -52,6 +51,10 @@ defmodule Orion.Words2NumbersTest do
 
     test "hundreds" do
       assert Words2Numbers.get("one hundred") == 100
+      assert Words2Numbers.get("three hundred") == 300
+    end
+
+    test "hundred + but less than 1000" do
       assert Words2Numbers.get("three hundred twenty") == 320
       assert Words2Numbers.get("three hundred thirty") == 330
       assert Words2Numbers.get("three hundred fourty") == 340
@@ -60,8 +63,8 @@ defmodule Orion.Words2NumbersTest do
 
     test "thousands" do
       assert Words2Numbers.get("one thousand") == 1000
-      # assert Words2Numbers.get("three hundred thirty") == 1001
-      # assert Words2Numbers.get("three hundred fourty") == 1341
+      assert Words2Numbers.get("one thousand one") == 1001
+      assert Words2Numbers.get("one thousand three hundred fourty one") == 1341
     end
   end
 end
