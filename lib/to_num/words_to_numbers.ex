@@ -26,6 +26,16 @@ defmodule Orion.WordsToNumbers do
 
   """
 
+  @doc """
+    Accepts string representation of a numbe and returns integer.
+    iex> WordsToNumbers.get("forty two")
+    # => 101
+    iex> WordsToNumbers.get("one thousand hundred one")
+    # => 100001
+    iex> WordsToNumbers.get("one thousand two hundred one")
+    # => 1201
+  """
+  @spec get(String.t) :: Integer.t
   def get(string) do
     string
     |> grammar()
