@@ -4,10 +4,10 @@
 defmodule Orion.WordsV2Test do
   use ExUnit.Case
 
-  @parser Orion.WordsToInt
+  @parser Orion.WordsToNumbers
 
   # Solution that passes tests.
-  @converter Orion.WordsV3.Converter
+  @converter Orion.Grammar.Converter
 
   describe "parse string" do
     test "parse to list" do

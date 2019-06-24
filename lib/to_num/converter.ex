@@ -1,4 +1,4 @@
-defmodule Orion.WordsV3.Converter do
+defmodule Orion.Grammar.Converter do
   # Converter Logic
   @moduledoc """
   Houses data structure conversion logic
