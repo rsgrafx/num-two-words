@@ -1,5 +1,4 @@
 defmodule Words.Grammar do
-
   def numbers do
     %{
       "" => 0,
@@ -31,9 +30,8 @@ defmodule Words.Grammar do
       "eighty" => 80,
       "ninety" => 90,
       "hundred" => {0, 0},
-      "thousand" => {0,0,0},
-      "million" => {0,0,0,0,0,0}
-     }
+      "thousand" => {0, 0, 0},
+      "million" => {0, 0, 0, 0, 0, 0}
+    }
   end
-
 end

@@ -9,6 +9,7 @@ defmodule Orion.V3 do
   end
 
   defp return(values) when is_binary(values), do: values
+
   defp return(values) when is_list(values) do
     values
     |> List.flatten()
@@ -24,15 +25,19 @@ defmodule Orion.V3 do
     digits(num) |> do_number()
   end
 
-  defp do_number([tens, num])  do
+  defp do_number([tens, num]) do
     [base_tens()[tens], base_numbers()[num]]
   end
 
-  defp do_number([top|rem] = num) when length(num) < 4 do
-    [do_number(top) | ["hundred",
-      rem
-      |> undigits()
-      |> do_number()]
+  defp do_number([top | rem] = num) when length(num) < 4 do
+    [
+      do_number(top)
+      | [
+          "hundred",
+          rem
+          |> undigits()
+          |> do_number()
+        ]
     ]
   end
 
@@ -50,12 +55,13 @@ defmodule Orion.V3 do
     string_list
   end
 
-  defp recurse([{nl, i}|rem], string_list) do
+  defp recurse([{nl, i} | rem], string_list) do
     words = words(undigits(nl), i)
-    recurse(rem, [words|string_list])
+    recurse(rem, [words | string_list])
   end
 
   defp words(0, _i), do: []
+
   defp words(num, i) do
     [do_number(num), base(i)]
   end
@@ -65,5 +71,4 @@ defmodule Orion.V3 do
   def base(2), do: ["million"]
   def base(3), do: ["billion"]
   def base(4), do: ["trillion"]
-
 end

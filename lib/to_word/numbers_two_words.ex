@@ -24,7 +24,7 @@ defmodule Orion.NumbersToWords do
 
   def do_number([], string), do: string
 
-  def do_number([head|last], string) when head in [0, "0"] do
+  def do_number([head | last], string) when head in [0, "0"] do
     do_number(last, string)
   end
 
@@ -35,32 +35,32 @@ defmodule Orion.NumbersToWords do
     do_number(rest, "#{string} million ")
   end
 
-  def do_number([a, b, c| rest] = num_list, _string) when length(num_list) > 5 do
+  def do_number([a, b, c | rest] = num_list, _string) when length(num_list) > 5 do
     string = do_number([a, b, c]) <> "thousand "
     do_number(rest, string)
   end
 
-  def do_number([a, b| last] = num_list, string) when length(num_list) == 5 do
+  def do_number([a, b | last] = num_list, string) when length(num_list) == 5 do
     base = fetch_base(num_list, hd(last))
     head = String.to_integer("#{a}#{b}")
     string = string <> "#{get(head)} " <> "#{base} " <> "and "
     do_number(last, string)
   end
 
-  def do_number([head|last] = num_list, string) when length(num_list) >= 3 do
+  def do_number([head | last] = num_list, string) when length(num_list) >= 3 do
     base = fetch_base(num_list, hd(last))
     num = String.to_integer(head)
     string = string <> "#{get(num)} " <> "#{base} " <> "and "
     do_number(last, string)
   end
 
-  def do_number([head| last] = num_list, string) when length(num_list) == 2 do
+  def do_number([head | last] = num_list, string) when length(num_list) == 2 do
     tens = num_check(base_tens(), head)
     string = string <> "#{tens} "
     do_number(last, string)
   end
 
-  def do_number([val] , string) do
+  def do_number([val], string) do
     string = string <> get(String.to_integer(val))
     do_number([], string)
   end
@@ -75,5 +75,4 @@ defmodule Orion.NumbersToWords do
 
   defp num_check(list, val),
     do: Map.get(list, val)
-
 end

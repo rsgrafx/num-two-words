@@ -2,7 +2,7 @@ defmodule Orion.WordsToNumbers do
   import Words.Grammar
 
   @converter Orion.Grammar.Converter
-  @moduledoc  """
+  @moduledoc """
     Second attempt at parsing words to numbers.
     From text to integers.
 
@@ -29,13 +29,15 @@ defmodule Orion.WordsToNumbers do
   def get(string) do
     string
     |> grammar()
-    |> @converter.convert() #Note Change
+    # Note Change
+    |> @converter.convert()
   end
 
   @doc "Returns the grammar"
-  @spec grammar(String.t()) :: List.t
+  @spec grammar(String.t()) :: List.t()
   def grammar(string) do
     string_list = parse(string)
+
     Enum.map(string_list, fn item ->
       Map.get(numbers(), item)
       |> case do

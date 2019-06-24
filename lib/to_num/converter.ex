@@ -24,18 +24,19 @@ defmodule Orion.Grammar.Converter do
 
   defp convert([], builder), do: builder
 
-  defp convert([i|tail], builder) when is_list(i) do
-    convert(tail, [i|builder])
+  defp convert([i | tail], builder) when is_list(i) do
+    convert(tail, [i | builder])
   end
 
-  defp convert([i|tail], builder) when is_tuple(i) do
-    [item|builder] = builder
-    convert(tail, [item ++ Tuple.to_list(i)|builder])
+  defp convert([i | tail], builder) when is_tuple(i) do
+    [item | builder] = builder
+    convert(tail, [item ++ Tuple.to_list(i) | builder])
   end
 
-  @spec convert([List.t|Tuple.t]) :: Integer.t
+  @spec convert([List.t() | Tuple.t()]) :: Integer.t()
   def convert(list) do
     list = convert(list, [])
+
     Enum.reduce(list, 0, fn i, acc ->
       Integer.undigits(i) + acc
     end)

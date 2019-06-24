@@ -1,5 +1,4 @@
 defmodule Orion.Base do
-
   @numbers %{
     0 => "",
     1 => "one",

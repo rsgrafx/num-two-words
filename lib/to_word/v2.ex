@@ -27,12 +27,12 @@ defmodule Orion.V2 do
     [do_number(hd(split))] ++ ["hundred"] ++ [do_number(rm)]
   end
 
-  defp do_number(num) when num < 1000000 do
+  defp do_number(num) when num < 1_000_000 do
     {thousands, base} = Enum.split(digits(num), -3)
     [do_number(undigits(thousands)), "thousand"] ++ [do_number(undigits(base))]
   end
 
-  defp do_number(num) when num > 1000000 do
+  defp do_number(num) when num > 1_000_000 do
     [millions, thousands, hundreds] = block(num)
     rem = thousands ++ hundreds
     [do_number(undigits(millions)), "million"] ++ [do_number(undigits(rem))]
@@ -49,6 +49,7 @@ defmodule Orion.V2 do
     |> Enum.map(fn block -> Enum.reverse(block) end)
     |> Enum.reverse()
   end
+
   #
   def base_term(len) do
     Map.get(base(), len)
@@ -66,6 +67,4 @@ defmodule Orion.V2 do
     |> Enum.join(" ")
     |> String.trim()
   end
-
-
 end

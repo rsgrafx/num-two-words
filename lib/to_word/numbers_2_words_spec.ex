@@ -1,5 +1,4 @@
 defmodule Numbers2Words do
-
   @numbers %{
     1 => "one",
     2 => "two",
@@ -10,7 +9,7 @@ defmodule Numbers2Words do
     7 => "seven",
     8 => "eight",
     9 => "nine",
-    10 => "ten",
+    10 => "ten"
   }
 
   @teens %{
@@ -39,25 +38,29 @@ defmodule Numbers2Words do
   end
 
   def get(number) when number < 100 do
-    nums =
-    fn
+    nums = fn
       num when num >= 20 and num <= 30 ->
         number_string("twenty", number - 20)
+
       num when num >= 60 and num < 70 ->
         number_string("sixty", number - 60)
     end
+
     nums.(number)
   end
 
   def get(number) do
     num_string = "#{number}"
 
-    value = if String.length(num_string) == 3 do
-      "hundred"
-    end
+    value =
+      if String.length(num_string) == 3 do
+        "hundred"
+      end
+
     string_split = String.split(num_string, "")
 
-    first = Enum.at(string_split, 0)
+    first =
+      Enum.at(string_split, 0)
       |> String.to_integer()
       |> get()
 
@@ -69,5 +72,4 @@ defmodule Numbers2Words do
     num = Map.get(@numbers, small_int)
     "#{string} #{num}"
   end
-
 end
