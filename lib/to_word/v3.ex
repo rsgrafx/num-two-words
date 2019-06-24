@@ -1,5 +1,3 @@
-Code.require_file("./spec/base.ex")
-
 defmodule Orion.V3 do
   import Orion.Base
   import Integer, only: [undigits: 1, digits: 1]

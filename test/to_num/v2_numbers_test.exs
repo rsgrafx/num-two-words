@@ -1,11 +1,6 @@
-Code.require_file("./spec/v3.ex")
-
-defmodule Orion.V4 do
-end
-
-defmodule Numbers2Words_V3_Test do
+defmodule Numbers2Words_V2_Test do
   use ExUnit.Case
-  alias Orion.V3, as: Numbers2Words
+  alias Orion.V2, as: Numbers2Words
 
   describe "Numbers 2 Words" do
     test "should convert integer to word equivalent" do
@@ -85,15 +80,6 @@ defmodule Numbers2Words_V3_Test do
     test "millions.." do
       assert "two million one" == Numbers2Words.get(2_000_001)
       assert "two million one thousand one" == Numbers2Words.get(2_001_001)
-    end
-
-    test "billions.." do
-      assert "two billion one hundred million one" == Numbers2Words.get(2_100_000_001)
-    end
-
-    test "trillions.!!! billions.." do
-      assert "two trillion one hundred billion one hundred million one" ==
-               Numbers2Words.get(2_100_100_000_001)
     end
   end
 end

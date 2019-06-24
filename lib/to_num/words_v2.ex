@@ -1,6 +1,3 @@
-Code.require_file("./spec/v2/grammar.ex")
-Code.require_file("./spec/words_v3.ex") # Solution
-
 defmodule Orion.WordsToInt do
   import Words.Grammar
   alias Orion.WordsV3.Converter, as: V3

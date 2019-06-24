@@ -1,5 +1,5 @@
-Code.require_file("./spec/words_v2.ex")
-Code.require_file("./spec/words_v3.ex")
+# Code.require_file("./spec/words_v2.ex")
+# Code.require_file("./spec/words_v3.ex")
 
 defmodule Orion.WordsV2Test do
   use ExUnit.Case

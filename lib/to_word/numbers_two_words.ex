@@ -1,6 +1,4 @@
-Code.require_file("./spec/base.ex")
-
-defmodule Orion.Numbers2Words do
+defmodule Orion.NumbersToWords do
   import Orion.Base
 
   def get(num) when num in [0, "0"] do

@@ -1,5 +1,3 @@
-Code.require_file("./spec/base.ex")
-
 defmodule Orion.Words2Numbers do
   import Orion.Base
   import Integer, only: [undigits: 1]

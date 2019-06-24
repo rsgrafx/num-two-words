@@ -1,5 +1,4 @@
-Code.require_file("./spec/words_to_numbers.ex")
-
+# Code.require_file("./spec/words_to_numbers.ex")
 defmodule Orion.Words2NumbersTest do
   use ExUnit.Case
   alias Orion.Words2Numbers
