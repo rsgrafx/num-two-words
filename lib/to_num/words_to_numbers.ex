@@ -29,23 +29,25 @@ defmodule Orion.WordsToNumbers do
   def get(string) do
     string
     |> grammar()
-    # Note Change
     |> @converter.convert()
   end
 
   @doc "Returns the grammar"
   @spec grammar(String.t()) :: List.t()
   def grammar(string) do
-    string_list = parse(string)
-
-    Enum.map(string_list, fn item ->
-      Map.get(numbers(), item)
-      |> case do
-        num when is_number(num) -> Integer.digits(num)
-        val -> val
-      end
-    end)
+    string
+    |> parse()
+    |> Enum.map(&build_list/1)
   end
+
+  defp build_list(data) do
+    numbers()
+    |> Map.get(data)
+    |> digitize()
+  end
+
+  defp digitize(i) when is_number(i), do: Integer.digits(i)
+  defp digitize(i), do: i
 
   def parse(string) do
     string
